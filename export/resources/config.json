@@ -1,23 +1,19 @@
 {
     "un-authed": {
         "metrics": {
-            "pcya": 100,
-            "order_count_pcya": 1,
-            "food_variance": 19,
+            "pcya": 90,
+            "order_count_pcya": 0,
+            "food_variance": 0,
             "labor_variance": 0,
             "adt": 0,
-            "extremes": 20.6,
-            "cash": 1
+            "extremes": 0,
+            "cash": 0
         },
         "images": [
             [],
             [],
             [],
-            [
-                {
-                    "path": "resources/uploaded/IMG_4636.png"
-                }
-            ]
+            []
         ]
     },
     "users": [

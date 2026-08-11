@@ -1,6 +1,4 @@
-package main
-
-import (
+package main ; import (
 	
 	os 			"os"
 	fmt 		"fmt"
@@ -224,10 +222,12 @@ func THBCUpdateMetrics(raw_metrics string) error {
 	
 	var wrapper struct {
 		UnAuthed struct {
-			Metrics Metrics `json:"un-authed"`;
+			Metrics Metrics `json:"metrics"`;
 		} `json:"un-authed"`;
 	};
 	
+	fmt.Printf("%s\n", raw_metrics);
+
 	if err := json.Unmarshal([]byte(raw_metrics), &wrapper); (err != nil) {
 		return fmt.Errorf("error updating metrics: %v", err);
 	}

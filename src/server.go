@@ -1,14 +1,14 @@
-package main
+package main ; import (
 
-import (
-	fmt "fmt"
-	log "log"
-	net "net"
-	http "net/http"
-	os "os"
-	atomic "sync/atomic"
+	os 		"os"
+	fmt 	"fmt"
+	log 	"log"
+	net 	"net"
+	http 	"net/http"
+	atomic 	"sync/atomic"
 
-	raylib "github.com/gen2brain/raylib-go/raylib"
+	raylib 	"github.com/gen2brain/raylib-go/raylib"
+
 )
 
 type THBCServer struct {
@@ -22,8 +22,6 @@ type THBCServer struct {
 	config_lock	atomic.Bool;
 
 }; var server = THBCServer{};
-
-const PAGE_MANAGER 	uint = 1;
 
 func THBCGetLocalIP() (string, error) {
 

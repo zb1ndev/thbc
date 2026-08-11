@@ -1,13 +1,13 @@
-package main
+package main ; import (
 
-import (
-	"encoding/json"
-	fmt "fmt"
-	"io"
-	http "net/http"
-	"os"
-	"path/filepath"
-	"strconv"
+	os 			"os"
+	io 			"io"
+	fmt 		"fmt"
+	http 		"net/http"
+	json 		"encoding/json"
+	strconv 	"strconv"
+	filepath 	"path/filepath"
+
 )
 
 func THBCIsAuthorized(request *http.Request) bool {
@@ -127,13 +127,13 @@ func THBCAPISetConfig(w http.ResponseWriter, r *http.Request) {
 	}
 
 	r.Body = http.MaxBytesReader(w, r.Body, 10240);
-	bodyBytes, err := io.ReadAll(r.Body);
+	body, err := io.ReadAll(r.Body);
 	if (err != nil) {
 		http.Error(w, "error reading request body data", http.StatusBadRequest);
 		return;
 	}
 
-	if err = THBCUpdateMetrics(string(bodyBytes)); (err != nil) {
+	if err = THBCUpdateMetrics(string(body)); (err != nil) {
 		http.Error(w, "error parsing request body data", http.StatusBadRequest);
 		return;
 	}
@@ -201,8 +201,8 @@ func THBCAPIAddSlide(w http.ResponseWriter, r *http.Request) {
 		return;
 	}
 
-	normalizedPath := filepath.ToSlash(local_save_path);
-	if err = THBCConfigAddImage(quad, pos, normalizedPath); (err != nil) {
+	normalized_path := filepath.ToSlash(local_save_path);
+	if err = THBCConfigAddImage(quad, pos, normalized_path); (err != nil) {
 		http.Error(w, "failed to add image to config", http.StatusInternalServerError);
 		return;
 	}

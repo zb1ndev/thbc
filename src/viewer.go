@@ -1,6 +1,4 @@
-package main
-
-import (
+package main ; import (
 
 	fmt 		"fmt"
 	log 		"log"
@@ -74,14 +72,43 @@ func THBCDrawTopLeft() {
 	joined := []string{"http://", ip_addr, ":7374"};
 	ip_addr = strings.Join(joined, "");
 
+	metrics := fmt.Sprintf(
+		"PCYA: %.2f%%\n" + 
+		"ORDER COUNT PCYA: %.2f%%\n" +
+		"FOOD VARIANCE: %.2f%%\n"+
+		"LABOR VARIANCE: %.2f%%\n"+
+		"ADT: %.2f%%\n"+
+		"EXTREMES: %.2f%%\n"+
+		"CASH: %.2f%%",
+		config.UnAuthed.Metrics.Pcya,
+		config.UnAuthed.Metrics.OrderCountPcya,
+		config.UnAuthed.Metrics.FoodVariance,
+		config.UnAuthed.Metrics.LaborVariance,
+		config.UnAuthed.Metrics.Adt,
+		config.UnAuthed.Metrics.Extremes,
+		config.UnAuthed.Metrics.Cash,
+	);
+
 	quadrants[0].slide_count = 1;
 	quadrants[0].slides[0].title = "Information";
-	text_size := raylib.MeasureTextEx(viewer.font, ip_addr, 32, 2);
     quadrants[0].slides[0].rendered = raylib.LoadRenderTexture(slide_width, slide_height);
 
 	raylib.BeginTextureMode(quadrants[0].slides[0].rendered);
         
         raylib.ClearBackground(raylib.Black);
+
+		raylib.DrawTextEx(
+            viewer.font, 
+            metrics,
+            raylib.Vector2{
+                X: 50, 
+                Y: 50,
+            }, 
+            50, 2,
+            raylib.White,
+        );
+
+		text_size := raylib.MeasureTextEx(viewer.font, ip_addr, 32, 2);
 
         raylib.DrawTextEx(
             viewer.font, 
@@ -107,7 +134,7 @@ func THBCDrawTopLeft() {
         raylib.DrawLine(
             slide_width >> 1, 25, 
             slide_width >> 1, slide_height - 25, 
-            raylib.Color{25,25,25,255},
+            raylib.Color{R:25,G:25,B:25,A:255},
         );
 
     raylib.EndTextureMode();
@@ -178,7 +205,7 @@ func THBCDrawConfiguredImages() {
 						Width:  dest_width,
 						Height: dest_height,
 					},
-					raylib.Vector2{0, 0}, 0, raylib.White,
+					raylib.Vector2{X:0,Y:0}, 0, raylib.White,
 				);
 
 			raylib.EndTextureMode();
