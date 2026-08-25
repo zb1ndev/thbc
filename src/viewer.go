@@ -1,13 +1,16 @@
 package main ; import (
 
+	os 			"os"
 	fmt 		"fmt"
 	log 		"log"
-	filepath	"path/filepath"
+	image 		"image"
+	_ 			"image/jpeg" 
 	strings 	"strings"
+	filepath 	"path/filepath"
 
 	raylib 		"github.com/gen2brain/raylib-go/raylib"
 	qrcode 		"github.com/skip2/go-qrcode"
-
+	
 )
 
 type THBCViewer struct {
@@ -124,10 +127,10 @@ func THBCDrawTopLeft() {
         raylib.DrawTextureEx(
             server.qr_code, 
             raylib.Vector2{
-                X: float32((slide_width-(slide_width/4))-(server.qr_code.Height >> 1)), 
-                Y: float32((slide_height >> 1) - (server.qr_code.Height >> 1) - int32(text_size.Y)),
+                X: float32(slide_width-(slide_width/4))-(float32(server.qr_code.Height) * 0.75), 
+                Y: float32((slide_height >> 1) - (server.qr_code.Height) - int32(text_size.Y)),
             }, 
-            0, 1.0, 
+            0, 1.5, 
             raylib.White,
         );
 
@@ -170,15 +173,26 @@ func THBCDrawConfiguredImages() {
 		quad.slide_count = len(images);
 
 		for pos, img := range images {
-
-			raw_image := raylib.LoadImage(img.Path)
-			if raw_image.Width == 0 || raw_image.Height == 0 {
-				log.Printf("skipping image %q in quad %d slot %d: failed to load", img.Path, quad_id, pos);
+			
+			file, err := os.Open(img.Path);
+			if (err != nil) {
+				log.Printf("skipping image %q in quad %d slot %d: failed to load image", img.Path, quad_id, pos);
 				continue;
 			}
 
-			texture := raylib.LoadTextureFromImage(raw_image);
-			raylib.UnloadImage(raw_image);
+			go_image, _, err := image.Decode(file);
+			if (err != nil) {
+				log.Printf("skipping image %q in quad %d slot %d: failed to decode image", img.Path, quad_id, pos);
+				continue;
+			}
+
+			texture := raylib.LoadTextureFromImage(raylib.NewImageFromImage(go_image));
+			file.Close();
+
+			if (!raylib.IsTextureValid(texture)) {
+				log.Printf("skipping image %q in quad %d slot %d: failed to load texture", img.Path, quad_id, pos);
+				continue;
+			}
 
 			quad.slides[pos].id = pos;
 			quad.slides[pos].title = filepath.Base(img.Path);
