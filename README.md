@@ -36,5 +36,4 @@ If it doesnt run at this point, I probably missed a dependency, as ChatGPT about
 `ESC` closes the application, `F` toggles fullscreen, and `C` toggles the cursor. You can use the QR Code displayed to go to the manager and upload slides and change metrics. You can also type in the link below the QR code to get to the manager instead.
 
 ## Images or smth
-![Alt Text](./thbc_screenshot.png)
 ![Alt Text](./thbc_screenshot_01.png)
