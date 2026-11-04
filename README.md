@@ -1,4 +1,6 @@
 # Team Honey Badger Slide Thingy-mabob
+This project was originally mostly written in C, then I translated it to Go with the help of AI, which is why some of it looks AI generated.
+
 Alright, there are some things you are going to need for this to work...
 1. A Computer with WIFI (RPI 3B+ if using raspberry pi)
 2. A TV/Monitor
